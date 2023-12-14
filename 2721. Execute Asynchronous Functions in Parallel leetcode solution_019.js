@@ -11,6 +11,7 @@ const promiseAll = (functions) => {
 					.then((result) => {
 						results[i] = result;
 						resolvedCount++;
+						// 必須要所有的 promise 都是 resolve，resolvedCount 才會等於 functions.length
 						if (resolvedCount === functions.length) {
 							resolve(results);
 						}
