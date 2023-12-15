@@ -1,17 +1,27 @@
+// 定義一個函式 compactObject，接受一個參數 obj
 const compactObject = (obj) => {
+	// 如果 obj 的類型不是物件或是 null，直接返回 obj
 	if (typeof obj !== 'object' || obj === null) return obj;
 
+	// 如果 obj 是陣列
 	if (Array.isArray(obj)) {
+		// 對 obj 進行過濾，保留值為真的元素，並對每個元素遞迴調用 compactObject
 		return obj.filter(Boolean).map(compactObject);
 	}
 
+	// 如果 obj 是一般物件
+	// 創建一個新的物件 compacted 來存放過濾後的鍵值對
 	const compacted = {};
 
+	// 使用 for...in 迴圈遍歷 obj 的每一個鍵
 	for (const key in obj) {
+		// 對每個鍵對應的值遞迴調用 compactObject
 		let value = compactObject(obj[key]);
+		// 如果 value 的布林值為真，則將這個鍵值對加入 compacted 中
 		if (Boolean(value)) compacted[key] = value;
 	}
 
+	// 返回過濾後的物件 compacted
 	return compacted;
 };
 
